@@ -78,19 +78,19 @@ pipeline {
                         )
                     ]) {
                         sh '''
+                            echo "Before update:"
                             cat deploy.yaml
-
-                            sed -i "s/32/${BUILD_NUMBER}/g" deploy.yaml
-
+                
+                            sed -i -E "s|(892387177992\\.dkr\\.ecr\\.ap-south-1\\.amazonaws\\.com/test:)[0-9]+|\\1${BUILD_NUMBER}|g" deploy.yaml
+                
+                            echo "After update:"
                             cat deploy.yaml
-
+                
+                            git config user.name "Jenkins"
+                            git config user.email "jenkins@localhost"
+                
                             git add deploy.yaml
-
                             git commit -m "Updated deploy yaml | Jenkins Pipeline" || true
-
-                            git push \
-                              https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/vijaysanwal/cicd-demo-manifests-repo.git \
-                              HEAD:main
                         '''
                     }
                 }
