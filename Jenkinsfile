@@ -61,7 +61,7 @@ pipeline {
         stage('Checkout K8S manifest SCM') {
             steps {
                 git(
-                    url: 'https://github.com/vijaysanwal/cicd-demo-manifests-repo.git',
+                    url: 'https://github.com/vijaysanwal/cicd-end-to-end.git',
                     branch: 'vijay'
                 )
             }
